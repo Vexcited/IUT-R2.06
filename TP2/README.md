@@ -152,3 +152,39 @@ VALUES
 $ psql < ./insert_blog_data.sql
 INSERT 0 4
 ```
+
+### 4.
+
+> Vérifiez le contenu de votre table.
+
+On va dans `psql`.
+
+```console
+iut=# SELECT * from blog.articles;
+ article_id | author  |       title        |              body               
+------------+---------+--------------------+---------------------------------
+          1 | Linus   | Disparition de Tux | La planète Linux est en alerte.
+          2 | Tux     | La blague du jour  | Windows 11.
+          3 |         | Météo              | Sale temps sur Seattle.
+          4 | Richard | Editorial          | 
+(4 rows)
+```
+
+On trouve bien nos 4 articles.
+
+### 5.
+
+> Essayez d'insérer un article sans tire.
+
+Toujours dans `psql`.
+
+```console
+iut=# INSERT INTO blog.articles (title, body, author) VALUES (NULL, 'Mikkel', 'Un article sans titre !');
+ERROR:  null value in column "title" of relation "articles" violates not-null constraint
+DETAIL:  Failing row contains (5, Un article sans titre !, null, Mikkel).
+```
+
+On obtient une erreur car la valeur du titre est `NULL`.
+
+## 4. Migration
+
